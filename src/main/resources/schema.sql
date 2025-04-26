@@ -1,0 +1,28 @@
+CREATE TABLE IF NOT EXISTS students (
+    id BIGSERIAL PRIMARY KEY,
+    name VARCHAR(255) NOT NULL,
+    email VARCHAR(255) NOT NULL UNIQUE
+);
+
+CREATE TABLE IF NOT EXISTS courses (
+    id BIGSERIAL PRIMARY KEY,
+    title VARCHAR(255) NOT NULL,
+    description TEXT NOT NULL
+);
+
+CREATE TABLE IF NOT EXISTS enrollments (
+    id BIGSERIAL PRIMARY KEY,
+    student_id BIGINT NOT NULL REFERENCES students(id),
+    course_id BIGINT NOT NULL REFERENCES courses(id),
+    enrollment_date TIMESTAMP NOT NULL,
+    active BOOLEAN NOT NULL DEFAULT true
+);
+
+CREATE TABLE IF NOT EXISTS email_logs (
+    id BIGSERIAL PRIMARY KEY,
+    recipient VARCHAR(255) NOT NULL,
+    subject VARCHAR(255) NOT NULL,
+    content TEXT NOT NULL,
+    sent_at TIMESTAMP NOT NULL,
+    status VARCHAR(50) NOT NULL
+); 
